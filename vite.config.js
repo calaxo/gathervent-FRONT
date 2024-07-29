@@ -2,10 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path';
 import Pages from 'vite-plugin-pages';
-import { splitVendorChunkPlugin } from 'vite';
+
 
 export default defineConfig({
-  plugins: [react({jsxRuntime: 'classic'}),
+  plugins: [react(),
     Pages({
       dirs: 'src/pages', 
 }
