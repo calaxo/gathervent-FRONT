@@ -1,4 +1,5 @@
-# exemple de site
+# gathervent
 
+un service web gratuit et open source 
 
-depart type pour créer des site avec react compilé en utilisant vitejs, un systeme de route par chemin de fichier et tailwind pour le style
+poure récupèrer les photo et video d'événements via une interface simple et intuitive accessible via un qrcode
