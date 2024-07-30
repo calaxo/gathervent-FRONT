@@ -11,17 +11,24 @@ const E5x = () => {
   };
 
   const sendFiles = async () => {
+    if ("vibrate" in navigator) {
+      navigator.vibrate([100]);
+    }
     try {
       const formData = new FormData();
       Array.from(selectedFiles).forEach((file) => {
         formData.append("files", file);
       });
 
-      const res = await axios.post("https://gathervent.axel-cal.fr/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(
+        "https://gathervent.axel-cal.fr/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (res) {
         console.log(res);
@@ -29,6 +36,7 @@ const E5x = () => {
     } catch (error) {
       console.log(error);
     }
+    setSelectedFiles([]);
   };
 
   return (
@@ -37,7 +45,7 @@ const E5x = () => {
         <input
           type="file"
           multiple
-          accept="image/*" // Restrict to image files
+          accept="image/*,video/*" // Restrict to image files
           onChange={updateFile}
           ref={fileInputRef}
           style={{ display: "none" }} // Hide the file input element
@@ -52,11 +60,11 @@ const E5x = () => {
             viewBox="0 0 24 24"
             stroke-width="1"
             stroke="red"
-            class="sm:w-52 sm:h-52
+            className="sm:w-52 sm:h-52
                      w-full h-full m-auto"
           >
             <path
-              class="animate-[move_35s_linear_infinite]"
+              className="animate-[move_35s_linear_infinite]"
               stroke-linecap="round"
               stroke-linejoin="round"
               d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
@@ -65,16 +73,17 @@ const E5x = () => {
             container the below classes.
           </svg>
 
-          <p className=" text-2xl">
-            cliquez pour selectionner les photos
-          </p>
+          <p className=" text-2xl">cliquez pour selectionner les photos</p>
           <p className=" text-2xl">
             {selectedFiles.length} fichiers sélectionnés
           </p>
         </button>
       </div>
 
-      <button className="bg-slate-400 rounded-xl p-4 m-2" onClick={sendFiles}>
+      <button
+        className="bg-slate-400 rounded-xl p-4 m-2 inline-block   px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white  transition duration-150 ease-in-out   focus:bg-slate-500 focus:shadow-black focus:outline-none focus:ring-0 active:bg-slate-600 active:shadow-black motion-reduce:transition-none dark:shadow-black/30"
+        onClick={sendFiles}
+      >
         Envoyer les fichiers
       </button>
     </div>
